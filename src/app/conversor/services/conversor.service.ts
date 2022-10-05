@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-// Importamos o HttpClient ao invés do Http para o Angular 7
-//import { Http } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Conversao, ConversaoResponse } from '../models';
@@ -17,10 +15,6 @@ export class ConversorService {
     },
   };
 
-  // fetch("https://api.apilayer.com/fixer/convert?to={to}&from={from}&amount={amount}", requestOptions)
-  //   .then(response => response.text())
-  //   .then(result => console.log(result))
-  //   .catch(error => console.log('error', error));
   /**
    * Realiza a chamada para a API de conversão de moedas.
    *
@@ -28,16 +22,10 @@ export class ConversorService {
    * @return {Observable<ConversaoResponse>}
    */
   converter(conversao: Conversao): Observable<any> {
-    // Na linha abaixo altere a '?' por '&'
-    let params = `&base=${conversao.moedaDe}&symbols=${conversao.moedaPara}`;
-    console.log(conversao, 'conversao');
     return this.http.get(
       `https://api.apilayer.com/fixer/convert?to=${conversao.moedaPara}&from=${conversao.moedaDe}&amount=${conversao.valor}`,
       this.requestOptions
     );
-    // No Angular 6 as duas próximas linha não são mais necessárias
-    // .map(response => response.json() as ConversaoResponse)
-    // .catch(error => Observable.throw(error));
   }
   /**
    * Retorna a data da cotação dado uma response.
