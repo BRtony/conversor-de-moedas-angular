@@ -5,7 +5,7 @@ import { ConversorService } from '../services';
 @Component({
   selector: 'modal-cotacao',
   templateUrl: './modal-cotacao.component.html',
-  styleUrls: ['./modal-cotacao.component.css']
+  styleUrls: ['./modal-cotacao.component.css'],
 })
 export class ModalCotacaoComponent implements OnInit {
   @Input() id: string;
@@ -13,10 +13,9 @@ export class ModalCotacaoComponent implements OnInit {
   @Input() conversao: Conversao = new Conversao();
   @Output() confirm: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private conversorService: ConversorService) { }
+  constructor(private conversorService: ConversorService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   novaConsulta() {
     this.confirm.emit();
   }
@@ -26,28 +25,10 @@ export class ModalCotacaoComponent implements OnInit {
       return '0';
     }
 
-    return (
-      this.conversao.valor *
-      this.conversaoResponse.rates[this.conversao.moedaPara]
-    ).toFixed(2);
-  }
-
-  get cotacaoPara(): number {
-    return this.conversorService.cotacaoPara(
-      this.conversaoResponse,
-      this.conversao
-    );
-  }
-
-  get cotacaoDe(): string {
-    return this.conversorService.cotacaoDe(
-      this.conversaoResponse,
-      this.conversao
-    );
+    return this.conversaoResponse.result.toFixed(5);
   }
 
   get dataCotacao(): string {
     return this.conversorService.dataCotacao(this.conversaoResponse);
   }
-
 }

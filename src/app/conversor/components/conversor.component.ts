@@ -7,7 +7,7 @@ import { Moeda, ConversaoResponse, Conversao } from '../models';
   selector: 'app-conversor',
   templateUrl: './conversor.component.html',
   styleUrls: ['./conversor.component.css'],
-  providers: [ConversorService]
+  providers: [ConversorService],
 })
 export class ConversorComponent implements OnInit {
   moedas: Moeda[];
@@ -22,7 +22,7 @@ export class ConversorComponent implements OnInit {
     private conversorService: ConversorService
   ) {}
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.moedas = this.moedaService.listarTodas();
     this.init();
   }
@@ -42,12 +42,14 @@ export class ConversorComponent implements OnInit {
   converter(): void {
     if (this.conversaoForm.form.valid) {
       // alert('Convertendo: ' + JSON.stringify(this.conversao));
-      this.conversorService
-        .converter(this.conversao)
-        .subscribe(
-          response => (this.conversaoResponse = response),
-          error => (this.possuiErro = true)
-        );
+      this.conversorService.converter(this.conversao).subscribe(
+        (response) => {
+          this.conversaoResponse = response;
+          console.log(response);
+        },
+
+        (error) => (this.possuiErro = true)
+      );
     }
   }
 }
